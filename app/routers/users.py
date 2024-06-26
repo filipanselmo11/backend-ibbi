@@ -11,17 +11,17 @@ from app.use_cases.user_use_cases import UserUseCases
 router = APIRouter(prefix='/user')
 test_router = APIRouter(prefix='/test', dependencies=[Depends(token_verifier)])
 
-@router.post('/create', response_model=UserResponse, status_code=201)
+@router.post('/create', status_code=201)
 async def user_create(user: UserCreateRequest, db: Session=Depends(get_db)):
     uc = UserUseCases(db=db)
     uc.user_create(user=user)
     return JSONResponse(content= {'msg': 'Usuário Criado'})
 
-@router.post('/login', response_model=UserResponse, status_code=200)
+@router.post('/login', status_code=200)
 async def user_login(request_form_user: OAuth2PasswordRequestForm=Depends(), db: Session=Depends(get_db)):
     uc = UserUseCases(db=db)
     user = UserLoginRequest(username=request_form_user.username, password=request_form_user.password) 
-    auth_data = jsonable_encoder(uc.user_login(user=user))
+    auth_data = uc.user_login(user=user)
     return JSONResponse(content=auth_data)
 
 @router.get('/users', response_model=list[UserResponse], status_code=200, dependencies=[Depends(token_verifier)])
