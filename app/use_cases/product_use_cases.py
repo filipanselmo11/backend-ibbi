@@ -16,12 +16,13 @@ class ProductUseCases:
             description=product.description,
             price=product.price,
             amount=product.amount,
-            category_id=product.category_id)
+            category_id=product.category_id,
+            image=product.image)
         try:
             self.db.add(product_model)
             self.db.commit()
         except IntegrityError:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Produto já')
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Produto já existe')
         
     def get_product(self, product_id: int):
         product_on_db = self.db.query(ProductModel).filter(ProductModel.id == product_id).first()

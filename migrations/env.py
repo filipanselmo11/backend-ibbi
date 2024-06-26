@@ -9,6 +9,7 @@ from app.shared.database import Base
 from app.models.user import UserModel
 from app.models.product import ProductModel
 from app.models.category import CategoryModel
+from app.models.purchase import PurchaseModel
 
 
 # this is the Alembic Config object, which provides

@@ -7,6 +7,7 @@ class ProductResponse(BaseModel):
     price: float
     amount: int
     category: CategoryResponse | None = None
+    image: str
     class Config:
         from_attributes = True
 
@@ -16,3 +17,4 @@ class ProductRequest(BaseModel):
     price: float
     amount: int
     category_id: int | None = None
+    image: str

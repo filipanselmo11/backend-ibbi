@@ -8,5 +8,6 @@ class ProductModel(Base):
     description = Column('description', String, nullable=False)
     price = Column('price', Float, nullable=False)
     amount = Column('amount', Integer, nullable=False)
+    image = Column('image', String, nullable=False)
     category_id = Column('category', Integer, ForeignKey('categories.id'))
     category = relationship('CategoryModel')
