@@ -16,9 +16,9 @@ async def make_sell(sale: SaleRequest, db: Session=Depends(get_db)):
     return JSONResponse(content={'msg': 'Venda realizada'})
 
 @router.get('/top-products', response_model=list[ProductResponse], status_code=200)
-async def get_top_products(limit: int = 10, db: Session=Depends(get_db)):
+async def get_top_products(skip:int = 0, limit: int = 10, db: Session=Depends(get_db)):
     sc = SaleUseCases(db=db)
-    top_products = jsonable_encoder(sc.get_top_products(limit=limit))
+    top_products = jsonable_encoder(sc.get_top_products(skip=skip, limit=limit))
     return JSONResponse(content=top_products)
 
 @router.get('/sales-by-category', response_model=list[SaleResponse], status_code=200)

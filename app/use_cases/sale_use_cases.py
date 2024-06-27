@@ -33,12 +33,12 @@ class SaleUseCases:
         except IntegrityError:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Erro ao realizar a venda')
         
-    def get_top_products(self, limit: int = 10):
+    def get_top_products(self, skip: int= 0, limit: int = 10):
         top_products = self.db.query(
             ProductModel.id,
             ProductModel.description,
             func.sum(SaleModel.amount).label("total_sold")
-        ).join(SaleModel).group_by(ProductModel.id).order_by(func.sum(SaleModel.amount).desc()).limit(limit).all()
+        ).join(SaleModel).group_by(ProductModel.id).order_by(func.sum(SaleModel.amount).desc()).offset(skip).limit(limit).all()
 
         return top_products
 
