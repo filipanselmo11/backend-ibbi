@@ -10,6 +10,7 @@ from app.models.user import UserModel
 from app.models.product import ProductModel
 from app.models.category import CategoryModel
 from app.models.purchase import PurchaseModel
+from app.models.sale import SaleModel
 
 
 # this is the Alembic Config object, which provides

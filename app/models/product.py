@@ -11,3 +11,4 @@ class ProductModel(Base):
     image = Column('image', String, nullable=False)
     category_id = Column('category', Integer, ForeignKey('categories.id'))
     category = relationship('CategoryModel')
+    sales = relationship('SaleModel')
