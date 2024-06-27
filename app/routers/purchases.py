@@ -8,7 +8,7 @@ from app.use_cases.purchase_use_cases import PurchaseUseCases
 
 router = APIRouter(prefix='/purchase')
 
-@router.post('/make', response_model=PurchaseRequest, status_code=201, dependencies=[Depends(token_verifier)])
+@router.post('/make', response_model=PurchaseRequest, status_code=201)
 async def make_purchase(purchase: PurchaseRequest, db: Session=Depends(get_db)):
     pc = PurchaseUseCases(db=db)
     pc.make_purchase(purchase=purchase)

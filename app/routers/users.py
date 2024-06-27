@@ -24,13 +24,13 @@ async def user_login(request_form_user: OAuth2PasswordRequestForm=Depends(), db:
     auth_data = uc.user_login(user=user)
     return JSONResponse(content=auth_data)
 
-@router.get('/users', response_model=list[UserResponse], status_code=200, dependencies=[Depends(token_verifier)])
+@router.get('/users', response_model=list[UserResponse], status_code=200)
 async def get_users(skip: int = 0, limit: int = 10, db: Session=Depends(get_db)):
     uc = UserUseCases(db=db)
     users = jsonable_encoder(uc.get_users(skip=skip, limit=limit))
     return JSONResponse(content=users)
 
-@router.get('/users/{user_id}', response_model=UserResponse, status_code=200, dependencies=[Depends(token_verifier)])
+@router.get('/users/{user_id}', response_model=UserResponse, status_code=200)
 async def get_user(user_id: int, db: Session=Depends(get_db)):
     uc = UserUseCases(db=db)
     user = jsonable_encoder(uc.get_user(user_id=user_id))
