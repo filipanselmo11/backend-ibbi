@@ -36,7 +36,7 @@ class SaleUseCases:
     def get_top_products(self, limit: int = 10):
         top_products = self.db.query(
             ProductModel.id,
-            ProductModel.name,
+            ProductModel.description,
             func.sum(SaleModel.amount).label("total_sold")
         ).join(SaleModel).group_by(ProductModel.id).order_by(func.sum(SaleModel.amount).desc()).limit(limit).all()
 
