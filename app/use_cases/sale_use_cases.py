@@ -41,6 +41,9 @@ class SaleUseCases:
         ).join(SaleModel).group_by(ProductModel.id).order_by(func.sum(SaleModel.amount).desc()).offset(skip).limit(limit).all()
 
         return top_products
+    
+    def get_sales(self, skip: int = 0, limit: int = 10):
+        return self.db.query(SaleModel).offset(skip).limit(limit).all()
 
     def get_sales_by_category(self, category_id: int):
         return self.db.query(SaleModel).join(ProductModel).filter(ProductModel.category_id == category_id).all() 

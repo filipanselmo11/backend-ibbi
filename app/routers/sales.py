@@ -21,6 +21,12 @@ async def get_top_products(skip:int = 0, limit: int = 10, db: Session=Depends(ge
     top_products = jsonable_encoder(sc.get_top_products(skip=skip, limit=limit))
     return JSONResponse(content=top_products)
 
+@router.get('/sales', response_model=list[SaleResponse], status_code=200)
+async def get_sales(skip: int = 0, limit: int = 10, db: Session=Depends(get_db)):
+    sc = SaleUseCases(db=db)
+    sales = jsonable_encoder(sc.get_sales(skip=skip, limit=limit))
+    return JSONResponse(content=sales)
+
 @router.get('/sales-by-category', response_model=list[SaleResponse], status_code=200)
 async def get_sales_by_id(category_id: int, db: Session=Depends(get_db)):
     sc = SaleUseCases(db=db)
