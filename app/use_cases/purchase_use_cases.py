@@ -28,3 +28,6 @@ class PurchaseUseCases:
             self.db.commit()
         except IntegrityError:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Erro ao realizar a compra')
+        
+    def get_purchases(self, skip: int = 0, limit: int = 10):
+        return self.db.query(PurchaseModel).offset(skip).limit(limit).all()
